@@ -7,7 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 // Routes for Index controller
-$routes->get('/', 'Index::index');
+$routes->get('/', 'Auth::login');
+
 
 // Routes for Users controller
 $routes->get('users', 'Users::index');
