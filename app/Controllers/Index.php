@@ -3,8 +3,12 @@ namespace App\Controllers;
 
 class Index extends BaseController {
     public function index() {
+        if (!session()->get('user')) {
+            return redirect()->to(base_url('auth/login'));
+        }
+
         $data = array(
-            'title' => 'Aling Basyang Sisigan',
+            'title' => 'ITSO',
         );
 
         return view('include\head_view', $data)

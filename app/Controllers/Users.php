@@ -3,11 +3,15 @@ namespace App\Controllers;
 
 class Users extends BaseController {
     public function index() {
+        if (!session()->get('user')) {
+            return redirect()->to(base_url('auth/login'));
+        }
+
         $usermodel = model('Users_model');
 
         $data = array(
             'title' => 'Users List',
-            'users' => $usermodel->where('is_deleted', 0)->findAll()
+            'users' => $usermodel->where('is_deactivated', 0)->findAll()
         );
 
         return view('include\head_view', $data)
@@ -15,7 +19,7 @@ class Users extends BaseController {
             .view('userslist_view', $data)
             .view('include\foot_view');
     }
-
+/*
         public function add(){
         $data = array(
             'title' => 'Add User',
@@ -93,5 +97,6 @@ class Users extends BaseController {
 
         return redirect()->to('users');
     }
+        */
 }
 ?>

@@ -11,6 +11,8 @@ $routes->get('/', 'Auth::login');
 $routes->get('/auth/forgot', 'Auth::forgot');
 $routes->post('auth/authenticate', 'Auth::authenticate');
 
+// Routes for Home controller
+$routes->get('home', 'Index::index');
 
 
 // Routes for Users controller

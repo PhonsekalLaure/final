@@ -26,7 +26,7 @@ class Auth extends BaseController {
 
         if ($user && password_verify($password, $user['password'])) {
             session()->set(['user' => $user]);
-            return redirect()->to(base_url('users'));
+            return redirect()->to(base_url('home'));
         } else {
             session()->setFlashdata('error', 'Invalid username or password.');
             return redirect()->back()->withInput();

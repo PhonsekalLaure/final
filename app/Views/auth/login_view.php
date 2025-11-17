@@ -1,6 +1,7 @@
 <?php
+//session()->destroy();
 if (session()->get('user')) {
-    return redirect('users');
+    return redirect()->to('home');
 }
 ?>
 
