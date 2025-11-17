@@ -18,15 +18,15 @@ class Auth extends BaseController {
     }
 
     public function authenticate() {
-        $usermodel = model('Users_model');
+        $adminmodel = model('Admin_model');
 
-        $username = $this->request->getPost('username');
+        $username = strtolower(trim($this->request->getPost('username')));
         $password = $this->request->getPost('password');
 
-        $user = $usermodel->where('username', $username)
-                          ->where('is_deactivated', 0)
-                          ->where('role', 'ITSO')
-                          ->first();
+        $user = $adminmodel->where('username', $username)
+                           ->where('is_deactivated', 0)
+                           ->where('role', 'ITSO')
+                           ->first();
 
         if ($user && password_verify($password, $user['password'])) {
             session()->set(['user' => $user]);

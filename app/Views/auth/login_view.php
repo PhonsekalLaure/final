@@ -6,7 +6,7 @@
         <div class="col-12 col-sm-9 col-md-6 col-lg-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-center mb-4">Sign In</h3>
+                    <h3 class="card-title text-center mb-4">Login</h3>
 
                     <?php if(session()->getFlashdata('error')): ?>
                         <div class="alert alert-danger" role="alert">
