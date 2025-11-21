@@ -1,53 +1,101 @@
-<?php
-//session()->destroy();
-?>
+<style>
+    /* Full-page background image */
+    body {
+        background: url(<?= base_url('public/assets/images/loginbg.png') ?>) no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-    <div class="row min-vh-100 align-items-center justify-content-center">
-        <div class="col-12 col-sm-9 col-md-6 col-lg-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-center mb-4">Login</h3>
+    /* Glassmorphism card */
+    .glass-card {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 40px 30px;
+        width: 350px;
+        text-align: center;
+        color: #fff;
+        margin: 0 auto; /* center horizontally */
+        box-sizing: border-box;
+    }
 
-                    <?php if(session()->getFlashdata('error')): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?= session()->getFlashdata('error') ?>
-                        </div>
-                    <?php endif; ?>
+    .glass-card input {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        color: #fff;
+    }
 
-                    <?php if (isset($validation)): ?>
-                        <div class="alert alert-danger">
-                            <?= $validation->listErrors() ?>
-                        </div>
-                    <?php endif; ?>
+    .glass-card input::placeholder {
+        color: #eee;
+    }
 
-                    <form action="<?= base_url('auth/authenticate') ?>" method="post" novalidate>
-                        <?= csrf_field() ?>
+    .glass-card button {
+        background-color: #1f7a3f;
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        width: 100%;
+        color: #fff;
+        font-weight: bold;
+    }
 
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="<?= set_value('username') ?>" placeholder="Your username" required>
-                        </div>
+    .glass-card button:hover {
+        background-color: #145a2a;
+    }
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Your password" required>
-                        </div>
+    /* Footer */
+    footer {
+        margin: 50px auto 0; /* center horizontally */
+        padding: 5px;
+        backdrop-filter: blur(10px);
+        background: rgba(255,255,255,0.15);
+        border-radius: 15px;
+        border: 1px solid rgba(255,255,255,0.2);
+        color: #fff;
+        text-align: center;
+        width: auto;
+        max-width: 90%;
+    }
 
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember" <?= set_value('remember') ? 'checked' : '' ?>>
-                            <label class="form-check-label" for="remember">Remember me</label>
-                        </div>
+    a {
+        color: #00bfff;
+        text-decoration: none;
+    }
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Sign In</button>
-                        </div>
+    a:hover {
+        text-decoration: underline;
+    }
 
-                    </form>
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+        .glass-card {
+            width: 70%;
+            padding: 24px 18px;
+        }
+        footer { width: 92%; }
+    }
+</style>
 
-                    <div class="mt-3 text-center">
-                        <a href="<?= base_url('auth/forgot') ?>">Forgot password?</a>
-                    </div>
-                </div>
-            </div>
+<div class="glass-card">
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/user.png" width="80" alt="User Icon"/>
+    <h2 class="mt-2">Login</h2>
+    <form>
+        <input type="text" class="form-control my-2" placeholder="Username" required>
+        <input type="password" class="form-control my-2" placeholder="Password" required>
+        <div class="form-check text-start my-2">
+            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+            <label class="form-check-label" for="rememberMe" style="color:#fff;">Remember me</label>
         </div>
-    </div>
+        <button type="submit">Login</button>
+        <p class="mt-2"><a href="#">Forgot password?</a></p>
+    </form>
+</div>
