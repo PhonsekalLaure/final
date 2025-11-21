@@ -16,13 +16,14 @@
         backdrop-filter: blur(10px);
         background: rgba(255, 255, 255, 0.15);
         border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
         border: 1px solid rgba(255, 255, 255, 0.2);
         padding: 40px 30px;
         width: 350px;
         text-align: center;
         color: #fff;
-        margin: 0 auto; /* center horizontally */
+        margin: 0 auto;
+        /* center horizontally */
         box-sizing: border-box;
     }
 
@@ -54,12 +55,13 @@
 
     /* Footer */
     footer {
-        margin: 50px auto 0; /* center horizontally */
+        margin: 50px auto 0;
+        /* center horizontally */
         padding: 5px;
         backdrop-filter: blur(10px);
-        background: rgba(255,255,255,0.15);
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 15px;
-        border: 1px solid rgba(255,255,255,0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         color: #fff;
         text-align: center;
         width: auto;
@@ -81,21 +83,39 @@
             width: 70%;
             padding: 24px 18px;
         }
-        footer { width: 92%; }
+
+        footer {
+            width: 92%;
+        }
     }
 </style>
 
 <div class="glass-card">
-    <img src="https://img.icons8.com/ios-filled/100/ffffff/user.png" width="80" alt="User Icon"/>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger" role="alert">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($validation)): ?>
+        <div class="alert alert-danger">
+            <?= $validation->listErrors() ?>
+        </div>
+    <?php endif; ?>
+
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/user.png" width="80" alt="User Icon" />
+
     <h2 class="mt-2">Login</h2>
-    <form>
-        <input type="text" class="form-control my-2" placeholder="Username" required>
-        <input type="password" class="form-control my-2" placeholder="Password" required>
+
+    <form action="<?= base_url('auth/authenticate') ?>" method="post" novalidate>
+        <input type="text" class="form-control my-2" id="username" name="username" value="<?= set_value('username') ?>" placeholder="Your username" required>
+        <input type="password" class="form-control my-2" id="password" name="password" placeholder="Your password" required>
         <div class="form-check text-start my-2">
-            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+            <input class="form-check-input" type="checkbox" id="remember" name="remember" <?= set_value('remember') ? 'checked' : '' ?>>
             <label class="form-check-label" for="rememberMe" style="color:#fff;">Remember me</label>
         </div>
         <button type="submit">Login</button>
-        <p class="mt-2"><a href="#">Forgot password?</a></p>
+        <p class="mt-2"><a href="<?= base_url('auth/forgot') ?>">Forgot password?</a></p>
     </form>
 </div>
