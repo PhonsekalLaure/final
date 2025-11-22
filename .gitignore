@@ -2,5 +2,7 @@
 writable/logs/
 writable/debugbar/
 writable/session/
+/writable/logs/*
+/writable/logs/log-*.log
 
 .env
