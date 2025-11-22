@@ -1,0 +1,6 @@
+# CodeIgniter Debug Toolbar and logs
+writable/logs/
+writable/debugbar/
+writable/session/
+
+.env
