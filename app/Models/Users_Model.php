@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 class Users_model extends Model {
     protected $table      = 'users';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'user_id';
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
@@ -15,10 +15,12 @@ class Users_model extends Model {
         'role',
         'username',
         'password',
-        'fullname',
+        'firstname',
+        'lastname',
         'email',
         'date_created',
-        'is_deactivated'
+        'is_deactivated',
+        'is_verified'
     ];
 
     protected bool $allowEmptyInserts = false;

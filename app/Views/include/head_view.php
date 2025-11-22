@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<?= base_url('public/assets/css/sidebar.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/css/dashboard.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('public/assets/css/footer.css');?>">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 

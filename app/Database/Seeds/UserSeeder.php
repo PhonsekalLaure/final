@@ -8,25 +8,29 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        // Use the model to avoid re-writing validation rules, etc.
-        $usermodel = model('Users_model');
+        $data = [
+            [
+                'username' => 'johnpork',
+                'password' => password_hash('Password1.', PASSWORD_DEFAULT),
+                'firstname' => 'John',
+                'lastname' => 'Pork',
+                'email' => 'admin@itso.com',
+                'role' => 'Admin',
+                'is_verified' => 1
+            ],
+            [
+                'username' => 'sixseven',
+                'password' => password_hash('Password1.', PASSWORD_DEFAULT),
+                'firstname' => 'Six',
+                'lastname' => 'Seven',
+                'email' => 'sadmin@itso.com',
+                'role' => 'SAdmin',
+                'is_verified' => 1
+            ],
+        ];
 
-        // Check if the admin user already exists to prevent errors on re-running the seeder
-        if ($usermodel->where('username', 'admin')->countAllResults() === 0) {
-            $data = [
-                'username'       => 'admin',
-                'password'       => password_hash('Password1.', PASSWORD_DEFAULT),
-                'fullname'       => 'Administrator',
-                'email'          => 'admin@itso.com',
-                'role'           => 'ITSO',
-                'is_deactivated' => 0,
-            ];
+        $this->db->table('users')->insertBatch($data);
 
-            $usermodel->insert($data);
-
-            echo "Admin user created successfully.\n";
-        } else {
-            echo "Admin user already exists.\n";
-        }
+        echo "Users seeded successfully.\n";
     }
 }

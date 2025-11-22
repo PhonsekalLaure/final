@@ -7,9 +7,18 @@
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-person-circle" style="font-size: 40px; color:#0b824a;"></i>
             <div>
-                <b><?= $user['fullname'] ?? session()->get('user')['fullname']; ?></b><br>
-                <small>Administrator</small><br>
-                <small>Current time: <?= date("M d, Y h:i A"); ?></small>
+                <b><?= $user['firstname'] . " " . $user['lastname']; ?></b><br>
+                <small>
+                <?php
+                    if(strtolower($user['role']) == 'admin'){
+                        echo "Administrator";
+                    }
+                    elseif(strtolower($user['role']) == 'sadmin'){
+                        echo "Super Administrator";
+                    }
+                ?>
+                </small><br>
+                <small>Current time: <?= date("M d, Y h:i A", strtotime("+8 hours")); ?></small>
             </div>
         </div>
     </div>

@@ -1,9 +1,11 @@
 <?php
 namespace App\Controllers;
 
-class Auth extends BaseController {
+class Auth extends BaseController
+{
 
-    public function login() {
+    public function login()
+    {
         if (session()->get('user')) {
             return redirect()->to(base_url('home'));
         }
@@ -12,21 +14,23 @@ class Auth extends BaseController {
             'title' => 'Login',
         );
         return view('include\head_auth_view', $data)
-            .view('auth\login_view')
-            .view('include\foot_auth_view');
+            . view('auth\login_view')
+            . view('include\foot_auth_view');
 
     }
 
-    public function authenticate() {
-        $adminmodel = model('Admin_model');
+    public function authenticate()
+    {
+        $usermodel = model('Users_model');
 
         $username = strtolower(trim($this->request->getPost('username')));
         $password = $this->request->getPost('password');
 
-        $user = $adminmodel->where('username', $username)
-                           ->where('is_deactivated', 0)
-                           ->where('role', 'ITSO')
-                           ->first();
+        $user = $usermodel->where('username', $username)
+                          ->where('is_deactivated', 0)
+                          ->where('is_verified', 1)
+                          ->whereIn('role', ['admin', 'sadmin'])
+                          ->first();
 
         if ($user && password_verify($password, $user['password'])) {
             session()->set(['user' => $user]);
@@ -37,16 +41,18 @@ class Auth extends BaseController {
         }
     }
 
-    public function forgot() {
+    public function forgot()
+    {
         $data = array(
             'title' => 'Forgot Password',
         );
         return view('include\head_auth_view', $data)
-            .view('auth\forgot_view')
-            .view('include\foot_auth_view');
+            . view('auth\forgot_view')
+            . view('include\foot_auth_view');
     }
 
-    public function logout() {
+    public function logout()
+    {
         session()->destroy();
         return redirect()->to(base_url('/'));
     }

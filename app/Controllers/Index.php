@@ -7,9 +7,9 @@ class Index extends BaseController {
             return redirect()->to(base_url('auth/login'));
         }
 
-        $adminmodel = model('Admin_model');
+        $usermodel = model('Users_model');
         $userId = session()->get('user')['id'];
-        $user = $adminmodel->find($userId);
+        $user = $usermodel->find($userId);
         $data = array(
             'title' => 'ITSO',
             'user'=>$user
