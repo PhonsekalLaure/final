@@ -1,6 +1,28 @@
 footer {
-    background-color: white;
-    color: green;
+    margin-left: 250px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+    padding: 20px;
     text-align: center;
-    padding: 15px 0;
+    width: calc(100% - 250px);
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+footer p {
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Responsive footer */
+@media (max-width: 992px) {
+footer {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+

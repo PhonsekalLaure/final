@@ -1,0 +1,116 @@
+/* Page background */
+body {
+    background: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Main content wrapper (beside sidebar) */
+.main-content {
+    width: 90%;
+    margin-left: 250px;
+    padding: 20px;
+    min-height: calc(104vh - 100px);
+}
+
+/* Top header container */
+.dashboard-header {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 2px solid #0b824a;
+    margin-bottom: 25px;
+}
+
+.dashboard-header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0b824a;
+}
+
+/* Dashboard cards */
+.stats-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #dcdcdc;
+    transition: 0.2s ease;
+    text-align: center;
+    min-height: 150px;
+}
+
+.stats-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+.stats-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0b824a;
+}
+
+.stats-number {
+    font-size: 40px;
+    font-weight: 800;
+    margin-top: 5px;
+    color: #333;
+}
+
+.sub-label {
+    font-size: 13px;
+    margin-top: -5px;
+}
+
+/* Section titles */
+.section-title {
+    font-weight: 700;
+    font-size: 20px;
+    color: #0b824a;
+    margin-bottom: 15px;
+}
+
+/* Recent activities box */
+.activities-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #dcdcdc;
+    height: 270px;
+}
+
+/* Quick actions */
+.quick-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #dcdcdc;
+}
+
+.quick-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 12px;
+    background: #0b824a;
+    color: white;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.quick-btn:hover {
+    background: #fabc15;
+    color: black;
+}
+
+/* Responsive */
+@media(max-width: 992px) {
+    .main-content {
+        width: 90%;
+        margin-left: 7%;
+        padding: 20px;
+        min-height: calc(104vh - 100px);
+    }
+}

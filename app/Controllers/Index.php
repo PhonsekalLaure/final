@@ -7,8 +7,12 @@ class Index extends BaseController {
             return redirect()->to(base_url('auth/login'));
         }
 
+        $adminmodel = model('Admin_model');
+        $userId = session()->get('user')['id'];
+        $user = $adminmodel->find($userId);
         $data = array(
             'title' => 'ITSO',
+            'user'=>$user
         );
 
         return view('include\head_view', $data)

@@ -11,9 +11,9 @@ class Auth extends BaseController {
         $data = array(
             'title' => 'Login',
         );
-        return view('include\head_view', $data)
+        return view('include\head_auth_view', $data)
             .view('auth\login_view')
-            .view('include\foot_view');
+            .view('include\foot_auth_view');
 
     }
 
@@ -41,9 +41,9 @@ class Auth extends BaseController {
         $data = array(
             'title' => 'Forgot Password',
         );
-        return view('include\head_view', $data)
+        return view('include\head_auth_view', $data)
             .view('auth\forgot_view')
-            .view('include\foot_view');
+            .view('include\foot_auth_view');
     }
 
     public function logout() {
