@@ -27,7 +27,7 @@
             <span class="material-symbols-outlined">inventory_2</span>Equipment
         </a>
 
-        <a href="<?= base_url('borrowing') ?>" class="nav-link">
+        <a href="<?= base_url('borrows') ?>" class="nav-link">
             <span class="material-symbols-outlined">assignment_return</span>Borrowing
         </a>
 

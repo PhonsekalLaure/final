@@ -30,6 +30,9 @@ $routes->get('users', 'Users::index');
 // Routes for Equipments controller
 $routes->get('equipments', 'Equipments::index');
 
+// Routes for Borrows controller
+$routes->get('borrows', 'Borrows::index');
+
 
 
 
