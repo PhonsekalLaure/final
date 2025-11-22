@@ -23,17 +23,57 @@
         </div>
     </div>
 
-    <!-- NEW EQUIPMENT panel with form quick action -->
+    <!-- NEW EQUIPMENT panel with form -->
     <div class="quick-box mb-4">
         <div class="section-title mb-3 d-flex align-items-center gap-2">
             <i class="bi bi-plus-circle"></i> NEW EQUIPMENT
         </div>
-
-        <div class="d-flex justify-content-end">
-            <a href="<?= base_url('equipments/add'); ?>" class="btn" style="background:#f4b029; color:#fff; font-weight:600;">
-                <i class="bi bi-plus-lg"></i> Add Equipment
-            </a>
-        </div>
+        
+        <form action="<?= base_url('equipments/insert'); ?>" method="post" id="addEquipmentForm" enctype="multipart/form-data">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label fw-bold">
+                        <i class="bi bi-box-seam"></i> Equipment Name
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           placeholder="Enter equipment name" required>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="description" class="form-label fw-bold">
+                        <i class="bi bi-card-text"></i> Description
+                    </label>
+                    <input type="text" class="form-control" id="description" name="description" 
+                           placeholder="Enter description" required>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="total_count" class="form-label fw-bold">
+                        <i class="bi bi-calculator"></i> Total Count
+                    </label>
+                    <input type="number" class="form-control" id="total_count" name="total_count" 
+                           placeholder="Enter total count" min="0" required>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="available_count" class="form-label fw-bold">
+                        <i class="bi bi-check-circle"></i> Available Count
+                    </label>
+                    <input type="number" class="form-control" id="available_count" name="available_count" 
+                           placeholder="Enter available count" min="0" required>
+                </div>
+                
+                <div class="col-12 text-end">
+                    <button type="reset" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle"></i> Clear
+                    </button>
+                    <button type="submit" class="btn ms-2" 
+                            style="background:#f4b029; color:#fff; font-weight:600;">
+                        <i class="bi bi-plus-lg"></i> Add Equipment
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!-- EQUIPMENT LIST panel -->
@@ -114,6 +154,19 @@
                 deleteModal.show();
             });
         });
+
+        // Form validation
+        var form = document.getElementById('addEquipmentForm');
+        form.addEventListener('submit', function(e) {
+            var totalCount = parseInt(document.getElementById('total_count').value);
+            var availableCount = parseInt(document.getElementById('available_count').value);
+            
+            if (availableCount > totalCount) {
+                e.preventDefault();
+                alert('Available count cannot be greater than total count!');
+                return false;
+            }
+        });
     });
 </script>
 
@@ -132,5 +185,23 @@
     .quick-box .section-title {
         color: #0b824a;
         font-weight: 700;
+    }
+
+    /* Form styling */
+    .quick-box form .form-label {
+        color: #0b824a;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .quick-box form .form-control {
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        padding: 8px 12px;
+    }
+
+    .quick-box form .form-control:focus {
+        border-color: #0b824a;
+        box-shadow: 0 0 0 0.2rem rgba(11, 130, 74, 0.15);
     }
 </style>
