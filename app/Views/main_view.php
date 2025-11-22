@@ -113,7 +113,7 @@
         <h2>Admin Dashboard</h2>
 
         <div class="d-flex align-items-center gap-3">
-            <span class="material-icons" style="font-size: 40px; color:#0b824a;">person</span>
+            <i class="bi bi-person-circle" style="font-size: 40px; color:#0b824a;"></i>
             <div>
                 <b><?= session()->get('username'); ?></b><br>
                 <small>Administrator</small><br>
@@ -168,7 +168,7 @@
         <div class="col-md-8">
             <div class="activities-box">
                 <div class="section-title">
-                    <span class="material-icons">history</span> Recent Activities
+                    <i class="bi bi-clock-history"></i> Recent Activities
                 </div>
                 
                 <div>
@@ -189,23 +189,23 @@
         <div class="col-md-4">
             <div class="quick-box">
                 <div class="section-title">
-                    <span class="material-icons">flash_on</span> Quick Actions
+                    <i class="bi bi-lightning-fill"></i> Quick Actions
                 </div>
 
                 <button class="quick-btn" onclick="window.location.href='<?= site_url('equipment/add') ?>'">
-                    <span class="material-icons">add_circle</span> Add Equipment
+                    <i class="bi bi-plus-circle"></i> Add Equipment
                 </button>
 
                 <button class="quick-btn" onclick="window.location.href='<?= site_url('borrow') ?>'">
-                    <span class="material-icons">shopping_cart</span> Process Borrowing
+                    <i class="bi bi-cart-fill"></i> Process Borrowing
                 </button>
 
                 <button class="quick-btn" onclick="window.location.href='<?= site_url('return') ?>'">
-                    <span class="material-icons">assignment_return</span> Process Returning
+                    <i class="bi bi-arrow-return-left"></i> Process Returning
                 </button>
 
                 <button class="quick-btn" onclick="window.location.href='<?= site_url('reports') ?>'">
-                    <span class="material-icons">analytics</span> View Reports
+                    <i class="bi bi-bar-chart-fill"></i> View Reports
                 </button>
             </div>
         </div>
