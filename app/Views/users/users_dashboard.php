@@ -112,7 +112,7 @@
                                 </a>
                                 <a href="#" class="btn btn-outline-danger btn-sm btn-delete" title="Delete"
                                     data-id="<?= $user['user_id']; ?>"
-                                    data-name="<?= htmlspecialchars($user['firstname']); ?>">
+                                    data-name="<?= htmlspecialchars($user['firstname']) . " " . htmlspecialchars($user['lastname']); ?>">
                                     <span class="material-symbols-outlined">delete</span>
                                 </a>
                             </td>
