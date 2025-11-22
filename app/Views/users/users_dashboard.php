@@ -28,8 +28,15 @@
         <div class="section-title mb-3 d-flex align-items-center gap-2">
             <i class="bi bi-plus-circle"></i> NEW USER
         </div>
-        
-        <form action="<?= base_url('users/insert'); ?>" method="post" id="addUserForm">
+        <?php if(isset($validation)): ?>
+    <div class="alert alert-danger">
+        <?= $validation->listErrors() ?>
+    </div>
+<?php endif; ?>
+
+        <form action="<?= base_url('users/insert'); ?>" method="post" id="addUserForm"
+      onsubmit="return confirm('Are you sure you want to create this user?');">
+
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="firstname" class="form-label fw-bold">
@@ -70,10 +77,12 @@
                     <button type="reset" class="btn btn-outline-secondary">
                         <i class="bi bi-x-circle"></i> Clear
                     </button>
-                    <button type="submit" class="btn ms-2" 
-                            style="background:#f4b029; color:#fff; font-weight:600;">
-                        <i class="bi bi-person-plus"></i> Add User
-                    </button>
+                  <button type="button" class="btn ms-2" 
+        style="background:#f4b029; color:#fff; font-weight:600;"
+        data-bs-toggle="modal" data-bs-target="#confirmAddModal">
+    <i class="bi bi-person-plus"></i> Add User
+</button>
+
                 </div>
             </div>
         </form>
@@ -124,7 +133,24 @@
     </div>
 
 </div>
-
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmAddModal" tabindex="-1" aria-labelledby="confirmAddModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmAddModalLabel">Confirm Add User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to create this user?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="confirmAddBtn" class="btn btn-warning">Yes, Add User</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -175,7 +201,14 @@
             }
         });
     });
+     var confirmAddBtn = document.getElementById('confirmAddBtn');
+    var addUserForm = document.getElementById('addUserForm');
+
+    confirmAddBtn.addEventListener('click', function() {
+        addUserForm.submit(); // submit the form
+    });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
     /* Minor table theming to align with dashboard palette */
