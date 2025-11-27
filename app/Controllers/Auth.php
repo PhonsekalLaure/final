@@ -8,7 +8,7 @@ class Auth extends BaseController
 
     public function login()
     {
-        if (session()->get('user')) {
+        if (session()->get('admin')) {
             return redirect()->to(base_url('dashboard'));
         }
 
@@ -28,13 +28,13 @@ class Auth extends BaseController
         $username = strtolower(trim($this->request->getPost('username')));
         $password = $this->request->getPost('password');
 
-        $user = $adminmodel->where('username', $username)
+        $admin = $adminmodel->where('username', $username)
             ->where('is_deactivated', 0)
             ->whereIn('role', ['admin', 'sadmin'])
             ->first();
 
-        if ($user && password_verify($password, $user['password'])) {
-            session()->set(['user' => $user]);
+        if ($admin && password_verify($password, $admin['password'])) {
+            session()->set(['admin' => $admin]);
             return redirect()->to(base_url('dashboard'));
         } else {
             session()->setFlashdata('error', 'Invalid username or password.');
@@ -44,6 +44,10 @@ class Auth extends BaseController
 
     public function forgot()
     {
+        if (session()->get('admin')) {
+            return redirect()->to(base_url('dashboard'));
+        }
+
         $data = array(
             'title' => 'Forgot Password',
         );
@@ -57,21 +61,21 @@ class Auth extends BaseController
         $adminmodel = model('Admins_Model');
 
         $username = (string) strtolower($this->request->getPost('username'));
-        $user = $adminmodel->where('username', $username)
-                           ->where('is_deactivated', 0)
-                           ->whereIn('role', ['admin', 'sadmin'])
-                           ->first();
+        $admin = $adminmodel->where('username', $username)
+            ->where('is_deactivated', 0)
+            ->whereIn('role', ['admin', 'sadmin'])
+            ->first();
 
-        if (!$user) {
+        if (!$admin) {
             session()->setFlashdata('error', 'Account not found.');
             return redirect()->back();
         }
 
-        $message = "<h2>Hello " . $user['firstname'] . ",</h2><br>
-            Reset your password <a href=" . base_url('auth/reset/' . $user['admin_id']) . ">here</a>.<br>From FEU Tech ITSO";
+        $message = "<h2>Hello " . $admin['firstname'] . ",</h2><br>
+            Reset your password <a href=" . base_url('auth/reset/' . $admin['admin_id']) . ">here</a>.<br>From FEU Tech ITSO";
 
         $email = service('email');
-        $email->setTo($user['email']);
+        $email->setTo($admin['email']);
         $email->setSubject('PASSWORD RESET');
         $email->setMessage($message);
 
@@ -84,6 +88,9 @@ class Auth extends BaseController
     }
     public function reset_page($id)
     {
+        if (session()->get('admin')) {
+            return redirect()->to(base_url('dashboard'));
+        }
         $data = array(
             'title' => 'Reset Password',
             'admin_id' => $id

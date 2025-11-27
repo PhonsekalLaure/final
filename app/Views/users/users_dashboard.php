@@ -7,13 +7,12 @@
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-person-circle" style="font-size: 40px; color:#0b824a;"></i>
             <div>
-                <?php $sessUser = session()->get('user'); ?>
-                <b><?= $user['firstname'] . " " . $user['lastname']; ?></b><br>
+                <b><?= $admin['firstname'] . " " . $admin['lastname']; ?></b><br>
                 <small>
                     <?php
-                    if (strtolower($user['role']) == 'admin') {
+                    if (strtolower($admin['role']) == 'admin') {
                         echo "Administrator";
-                    } elseif (strtolower($user['role']) == 'sadmin') {
+                    } elseif (strtolower($admin['role']) == 'sadmin') {
                         echo "Super Administrator";
                     }
                     ?>
@@ -22,80 +21,88 @@
             </div>
         </div>
     </div>
+    <?php if (isset($admin) && strtolower($admin['role']) === 'sadmin'): ?>
+        <!-- NEW USER panel with form -->
+        <div class="quick-box mb-4">
+            <div class="section-title mb-3 d-flex align-items-center gap-2">
+                <i class="bi bi-plus-circle"></i> NEW USER
+            </div>
+            <?php if (session()->getFlashdata('success')): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle"></i> <?= esc(session()->getFlashdata('success')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
 
-    <!-- NEW USER panel with form -->
-    <div class="quick-box mb-4">
-        <div class="section-title mb-3 d-flex align-items-center gap-2">
-            <i class="bi bi-plus-circle"></i> NEW USER
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-circle"></i> <?= esc(session()->getFlashdata('error')) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+
+            <?php if (session()->getFlashdata('errors')): ?>
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        <?php foreach (session()->getFlashdata('errors') as $err): ?>
+                            <li><?= esc($err) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+
+            <form action="<?= base_url('users/insert'); ?>" method="post" id="addUserForm">
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstname" class="form-label fw-bold">
+                            <i class="bi bi-person"></i> First Name
+                        </label>
+                        <input type="text" class="form-control" id="firstname" name="firstname"
+                            placeholder="Enter First Name" value="<?= set_value('firstname') ?>" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="lastname" class="form-label fw-bold">
+                            <i class="bi bi-person"></i> Last Name
+                        </label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name"
+                            value="<?= set_value('lastname') ?>" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="email" class="form-label fw-bold">
+                            <i class="bi bi-envelope"></i> Email
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
+                            value="<?= set_value('email') ?>" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="acctype" class="form-label fw-bold">
+                            <i class="bi bi-lock-fill"></i> Account Type
+                        </label>
+                        <select class="form-control" id="acctype" name="acctype" required>
+                            <option value="" disabled selected>Select account type</option>
+                            <option value="student">Associate</option>
+                            <option value="associate">Student</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button type="reset" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Clear
+                        </button>
+                        <button type="button" id="openConfirmAddModalBtn" class="btn ms-2"
+                            style="background:#f4b029; color:#fff; font-weight:600;">
+                            <i class="bi bi-person-plus"></i> Add User
+                        </button>
+
+                    </div>
+                </div>
+            </form>
         </div>
-        <?php if (session()->getFlashdata('success')): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle"></i> <?= esc(session()->getFlashdata('success')) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        
-        <?php if (session()->getFlashdata('errors')): ?>
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    <?php foreach (session()->getFlashdata('errors') as $err): ?>
-                        <li><?= esc($err) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <form action="<?= base_url('users/insert'); ?>" method="post" id="addUserForm">
-
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="firstname" class="form-label fw-bold">
-                        <i class="bi bi-person"></i> First Name
-                    </label>
-                    <input type="text" class="form-control" id="firstname" name="firstname"
-                        placeholder="Enter First Name" value="<?= set_value('firstname') ?>" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="lastname" class="form-label fw-bold">
-                        <i class="bi bi-person"></i> Last Name
-                    </label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name"
-                        value="<?= set_value('lastname') ?>" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="email" class="form-label fw-bold">
-                        <i class="bi bi-envelope"></i> Email
-                    </label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"
-                        value="<?= set_value('email') ?>" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="acctype" class="form-label fw-bold">
-                        <i class="bi bi-lock-fill"></i> Account Type
-                    </label>
-                    <select class="form-control" id="acctype" name="acctype" required>
-                        <option value="" disabled selected>Select account type</option>
-                        <option value="student">Associate</option>
-                        <option value="associate">Student</option>
-                    </select>
-                </div>
-
-                <div class="col-12 text-end">
-                    <button type="reset" class="btn btn-outline-secondary">
-                        <i class="bi bi-x-circle"></i> Clear
-                    </button>
-                    <button type="button" id="openConfirmAddModalBtn" class="btn ms-2"
-                        style="background:#f4b029; color:#fff; font-weight:600;">
-                        <i class="bi bi-person-plus"></i> Add User
-                    </button>
-
-                </div>
-            </div>
-        </form>
-    </div>
+    <?php endif; ?>
 
     <!-- USER LIST panel -->
     <div class="quick-box">
@@ -124,15 +131,18 @@
                                     class="btn btn-outline-success btn-sm me-1" title="View">
                                     <span class="material-symbols-outlined">visibility</span>
                                 </a>
-                                <a href="<?= base_url('users/edit/' . $user['user_id']); ?>"
-                                    class="btn btn-outline-warning btn-sm me-1" title="Edit">
-                                    <span class="material-symbols-outlined">edit</span>
-                                </a>
-                                <a href="#" class="btn btn-outline-danger btn-sm btn-delete" title="Delete"
-                                    data-id="<?= $user['user_id']; ?>"
-                                    data-name="<?= htmlspecialchars($user['firstname']) . " " . htmlspecialchars($user['lastname']); ?>">
-                                    <span class="material-symbols-outlined">delete</span>
-                                </a>
+                                <?php if (isset($admin) && strtolower($admin['role']) === 'sadmin'): ?>
+                                    <a href="<?= base_url('users/edit/' . $user['user_id']); ?>"
+                                        class="btn btn-outline-warning btn-sm me-1" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </a>
+
+                                    <a href="#" class="btn btn-outline-danger btn-sm btn-delete" title="Delete"
+                                        data-id="<?= $user['user_id']; ?>"
+                                        data-name="<?= htmlspecialchars($user['firstname']) . " " . htmlspecialchars($user['lastname']); ?>">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

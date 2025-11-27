@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Index extends BaseController {
     public function index() {
-        if (!session()->get('user')) {
+        if (!session()->get('admin')) {
             return redirect()->to(base_url('auth/login'));
         }
         // Use models for aggregated queries
@@ -34,7 +34,7 @@ class Index extends BaseController {
 
         $data = array(
             'title' => 'ITSO',
-            'user' => session()->get('user'),
+            'admin' => session()->get('admin'),
             'total_equipment' => $total_equipment,
             'available_equipment' => $available_equipment,
             'borrowed_today' => $borrowed_today,

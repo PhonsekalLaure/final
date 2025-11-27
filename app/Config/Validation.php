@@ -34,7 +34,7 @@ class Validation extends BaseConfig
      * @var array<string, string>
      */
     public array $templates = [
-        'list'   => 'CodeIgniter\Validation\Views\list',
+        'list' => 'CodeIgniter\Validation\Views\list',
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
@@ -42,8 +42,9 @@ class Validation extends BaseConfig
     // Rules
     // --------------------------------------------------------------------
     public array $create_user = [
-        'firstname'=> 'required|min_length[2]|max_length[50]|regex_match[/^[A-Za-z][A-Za-z\' -]*$/]',
-        'lastname'=> 'required|min_length[2]|max_length[50]|regex_match[/^[A-Za-z][A-Za-z\' -]*$/]',
+        'firstname' => 'required|min_length[2]|max_length[50]|regex_match[/^[A-Za-z][A-Za-z\' -]*$/]',
+        'lastname' => 'required|min_length[2]|max_length[50]|regex_match[/^[A-Za-z][A-Za-z\' -]*$/]',
         'email' => 'required|valid_email|is_unique[users.email]|',
     ];
+
 }

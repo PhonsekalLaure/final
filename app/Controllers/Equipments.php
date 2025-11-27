@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Equipments extends BaseController {
     public function index() {
-        if (!session()->get('user')) {
+        if (!session()->get('admin')) {
             return redirect()->to(base_url('auth/login'));
         }
 
@@ -12,7 +12,7 @@ class Equipments extends BaseController {
 
         $data = array(
             'title' => 'Equipment Dashboard',
-            'user' => session()->get('user'),
+            'admin' => session()->get('admin'),
             'equipments' => $equipmentmodel->where('is_deactivated', 0)->findAll()
         );
 
