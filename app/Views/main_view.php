@@ -7,13 +7,13 @@
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-person-circle" style="font-size: 40px; color:#0b824a;"></i>
             <div>
-                <b><?= $user['firstname'] . " " . $user['lastname']; ?></b><br>
+                <b><?= $admin['firstname'] . " " . $admin['lastname']; ?></b><br>
                 <small>
                 <?php
-                    if(strtolower($user['role']) == 'admin'){
+                    if(strtolower($admin['role']) == 'admin'){
                         echo "Administrator";
                     }
-                    elseif(strtolower($user['role']) == 'sadmin'){
+                    elseif(strtolower($admin['role']) == 'sadmin'){
                         echo "Super Administrator";
                     }
                 ?>

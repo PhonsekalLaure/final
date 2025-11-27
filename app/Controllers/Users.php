@@ -8,7 +8,7 @@ class Users extends BaseController
 
     public function index()
     {
-        if (!session()->get('user')) {
+        if (!session()->get('admin')) {
             return redirect()->to(base_url('auth/login'));
         }
 
@@ -16,11 +16,11 @@ class Users extends BaseController
 
         $data = [
             'title' => 'Users Dashboard',
-            'user' => session()->get('user'),
+            'admin' => session()->get('admin'),
             'users' => $usermodel->where('is_deactivated', 0)
-                                ->where('is_verified', 1)
-                                ->orderBy('role','ASC')
-                                ->findAll()
+                ->where('is_verified', 1)
+                ->orderBy('role', 'ASC')
+                ->findAll()
         ];
 
         return view('include/head_view', $data)
@@ -31,6 +31,12 @@ class Users extends BaseController
 
     public function insert()
     {
+        // Only Super Administrators can add users
+        $admin = session()->get('admin');
+        if (!$admin || strtolower($admin['role']) !== 'sadmin') {
+            return redirect()->to('users')->with('error', 'Unauthorized: only Super Administrators can add users.');
+        }
+
         $usermodel = new Users_Model();
         $validation = service('validation');
 
@@ -59,7 +65,7 @@ class Users extends BaseController
         ];
 
         $message = "<h2>Hello " . $data['firstname'] . ",</h2><br>
-            Click <a href=" . base_url('users/verify/' . $data_insert['token']) . ">here</a> to verify your Account.<br>From FEU Tech ITSO";
+        Click <a href=" . base_url('users/verify/' . $data_insert['token']) . ">here</a> to verify your Account.<br>From FEU Tech ITSO";
 
         $email = service('email');
         $email->setTo($data['email']);
@@ -69,7 +75,6 @@ class Users extends BaseController
             echo "MAY PROBLEMA!";
             return;
         }
-
 
         $usermodel->insert($data_insert);
 
@@ -94,6 +99,9 @@ class Users extends BaseController
 
     public function view($id)
     {
+        if (!session()->get('admin')) {
+            return redirect()->to(base_url('auth/login'));
+        }
         $usermodel = model('Users_Model');
 
         $data = [
@@ -109,6 +117,15 @@ class Users extends BaseController
 
     public function edit($id)
     {
+        if (!session()->get('admin')) {
+            return redirect()->to(base_url('auth/login'));
+        }
+        // Only Super Administrators can add users
+        $admin = session()->get('admin');
+        if (!$admin || strtolower($admin['role']) !== 'sadmin') {
+            return redirect()->to('users')->with('error', 'Unauthorized: only Super Administrators can add users.');
+        }
+
         $usermodel = new Users_Model();
 
         $data = [
@@ -124,7 +141,13 @@ class Users extends BaseController
 
     public function update($id)
     {
+        // Only Super Administrators can add users
+        $admin = session()->get('admin');
+        if (!$admin || strtolower($admin['role']) !== 'sadmin') {
+            return redirect()->to('users')->with('error', 'Unauthorized: only Super Administrators can add users.');
+        }
         $usermodel = new Users_Model();
+        $validation = service('validation');
 
         $data = [
             'firstname' => $this->request->getPost('firstname'),
@@ -132,10 +155,19 @@ class Users extends BaseController
             'email' => $this->request->getPost('email'),
         ];
 
-        // Only update password if provided
-        $password = $this->request->getPost('password');
-        if (!empty($password)) {
-            $data['password'] = password_hash($password, PASSWORD_DEFAULT);
+        // Build rules for update: ensure email is unique except for this user id
+        $rules = [
+            'firstname' => 'required|min_length[2]|max_length[50]|regex_match[/^[A-Za-z][A-Za-z\' -]*$/]',
+            'lastname' => 'required|min_length[2]|max_length[50]|regex_match[/^[A-Za-z][A-Za-z\' -]*$/]',
+            'email' => 'required|valid_email|is_unique[users.email,user_id,' . $id . ']',
+        ];
+
+        // Set the rules and run validation against the provided data
+        $validation->setRules($rules);
+        if (!$validation->run($data)) {
+            // If validation fails, redirect back to the edit page with errors and old input
+            $errors = $validation->getErrors();
+            return redirect()->back()->withInput()->with('errors', $errors);
         }
 
         $usermodel->update($id, $data);
@@ -145,6 +177,12 @@ class Users extends BaseController
 
     public function delete($id)
     {
+        // Only Super Administrators can add users
+        $admin = session()->get('admin');
+        if (!$admin || strtolower($admin['role']) !== 'sadmin') {
+            return redirect()->to('users')->with('error', 'Unauthorized: only Super Administrators can add users.');
+        }
+
         $usermodel = new Users_Model();
 
         $user = $usermodel->find($id);
@@ -159,3 +197,4 @@ class Users extends BaseController
     }
 }
 ?>
+<?php

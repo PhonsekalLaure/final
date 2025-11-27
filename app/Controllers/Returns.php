@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 class Returns extends BaseController {
     public function index() {
-        if (!session()->get('user')) {
+        if (!session()->get('admin')) {
             return redirect()->to(base_url('auth/login'));
         }
         $borrowsModel = model('Borrows_Model');
@@ -48,8 +48,8 @@ class Returns extends BaseController {
         unset($r);
 
         $data = array(
-            'title' => 'Users Dashboard',
-            'user' => session()->get('user'),
+            'title' => 'Returning Dashboard',
+            'admin' => session()->get('admin'),
             'active_borrows'=> $active_borrows,
             'returns'=> $returns,
         );

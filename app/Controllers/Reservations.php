@@ -3,13 +3,13 @@ namespace App\Controllers;
 
 class Reservations extends BaseController {
     public function index() {
-        if (!session()->get('user')) {
+        if (!session()->get('admin')) {
             return redirect()->to(base_url('auth/login'));
         }
 
         $data = array(
             'title' => 'Users Dashboard',
-            'user' => session()->get('user'),
+            'admin' => session()->get('admin'),
             'users'=> [],
             'equipments' => [],
             'reservations'=> [],

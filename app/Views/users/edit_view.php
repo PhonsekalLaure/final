@@ -5,29 +5,30 @@
     <div class="col col-md-6 mx-auto">
         <div class="card shadow-sm mt-4">
             <div class="card-body">
-                <form action="<?= base_url("users/update/".$user['id']) ;?>" method="post" enctype="multipart/form-data">
+                <form action="<?= base_url("users/update/" . $user['user_id']); ?>" method="post"
+                    enctype="multipart/form-data">
                     <div class="mb-3 row">
-                        <label for="username" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
+                        <label for="firstname" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
                             <span class="material-symbols-outlined" style="font-size: 28px;">
                                 account_circle
                             </span>
-                            Username
+                            First Namme
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>"
-                                required>
+                            <input type="text" class="form-control" id="firstname" name="firstname"
+                                value="<?= $user['firstname']; ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="fullname" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
+                        <label for="lastname" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
                             <span class="material-symbols-outlined" style="font-size: 28px;">
                                 description
                             </span>
-                            Full name
+                            Last Name
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="fullname" name="fullname" value="<?= $user['fullname']; ?>"
-                                required>
+                            <input type="text" class="form-control" id="lastname" name="lastname"
+                                value="<?= $user['lastname']; ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -38,33 +39,17 @@
                             Email
                         </label>
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="email" name="email" value="<?= $user['email']; ?>"
-                                required>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="<?= $user['email']; ?>" required>
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label for="password" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 28px;">
-                                password_2
-                            </span>
-                            New Password
+                    <div class="col-md-6">
+                        <label for="acctype" class="form-label fw-bold">
+                            <i class="bi bi-lock-fill"></i> Account Type
                         </label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Leave blank to keep current password">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="confpassword" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 28px;">
-                                password_2
-                            </span>
-                            Confirm New Password
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="confpassword" name="confpassword"
-                                placeholder="Confirm new password">
-                        </div>
+                        <select class="form-control" id="acctype" name="acctype" disabled required>
+                            <option value="" disabled selected><?= $user['role'];?></option>
+                        </select>
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <a href="<?= base_url("users") ?>" class="btn btn-secondary d-flex align-items-center gap-1">
