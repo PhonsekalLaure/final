@@ -1,14 +1,25 @@
-<header class="text-center py-4">
-    <h1 class="mb-0">View User</h1>
-</header>
-<main>
-    <div class="col col-md-6 mx-auto">
-        <div class="card shadow-sm mt-4">
-            <div class="card-body">
+<div class="main-content">
+
+    <!-- Page Header -->
+    <div class="dashboard-header d-flex justify-content-between align-items-center">
+        <h2>VIEW USER</h2>
+        <div>
+            <i class="bi bi-person-circle" style="font-size: 40px; color:white;"></i>
+        </div>
+    </div>
+
+    <!-- User Details Section -->
+    <div class="row gx-5 gy-4">
+        <div class="col-md-8">
+            <div class="activities-box">
+                <div class="section-title">
+                    <i class="bi bi-person-fill"></i> User Information
+                </div>
+
                 <form>
                     <div class="mb-3 row">
                         <label for="role" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 28px;">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">
                                 assignment_ind
                             </span>
                             Role
@@ -20,7 +31,7 @@
                     </div>
                     <div class="mb-3 row">
                         <label for="firstname" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 28px;">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">
                                 account_circle
                             </span>
                             First Name
@@ -32,8 +43,8 @@
                     </div>
                     <div class="mb-3 row">
                         <label for="lastname" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 28px;">
-                                description
+                            <span class="material-symbols-outlined" style="font-size: 20px;">
+                                person
                             </span>
                             Last Name
                         </label>
@@ -44,7 +55,7 @@
                     </div>
                     <div class="mb-3 row">
                         <label for="email" class="col-sm-3 col-form-label fw-bold d-flex align-items-center gap-2">
-                            <span class="material-symbols-outlined" style="font-size: 28px;">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">
                                 mail
                             </span>
                             Email
@@ -65,5 +76,20 @@
                 </form>
             </div>
         </div>
+
+        <!-- Quick Info Card -->
+        <div class="col-md-4">
+            <div class="quick-box">
+                <div class="section-title">
+                    <i class="bi bi-info-circle-fill"></i> User Summary
+                </div>
+                <div style="padding: 15px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 15px;">
+                    <p><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+                    <p><strong>Role:</strong> <?= ucfirst($user['role']); ?></p>
+                    <p><strong>Email:</strong> <?= $user['email']; ?></p>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+
+</div>
