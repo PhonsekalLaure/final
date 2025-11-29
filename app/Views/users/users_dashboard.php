@@ -5,7 +5,7 @@
         <h2>ASSOCIATES &amp; STUDENTS</h2>
 
         <div class="d-flex align-items-center gap-3">
-            <i class="bi bi-person-circle" style="font-size: 40px; color:#0b824a;"></i>
+            <i class="bi bi-person-circle" style="font-size: 40px; color:white;"></i>
             <div>
                 <b><?= $admin['firstname'] . " " . $admin['lastname']; ?></b><br>
                 <small>
@@ -149,6 +149,11 @@
                 </tbody>
             </table>
         </div>
+        <?php if (isset($pages) && $pages): ?>
+            <div class="d-flex justify-content-end mt-3">
+                <?= $pages->links() ?>
+            </div>
+        <?php endif; ?>
     </div>
 
 </div>

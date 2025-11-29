@@ -53,6 +53,7 @@ class Returns extends BaseController {
             'admin' => session()->get('admin'),
             'active_borrows' => $active_borrows,
             'returns' => $returns,
+            'prefill_borrow_id' => $this->request->getGet('borrow_id'),
         ];
 
         return view('include/head_view', $data)
