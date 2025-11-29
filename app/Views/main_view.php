@@ -71,15 +71,27 @@
                     <i class="bi bi-clock-history"></i> Recent Activities
                 </div>
 
-                <div>
+                <div style="overflow-y: auto; max-height: calc(270px - 80px);">
                     <?php if (!empty($recent_logs)): ?>
-                        <ul>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
                             <?php foreach ($recent_logs as $log): ?>
-                                <li><?= esc($log); ?></li>
+                                <li style="padding: 10px 0; border-bottom: 1px solid #e3e3e3; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>
+                                        <?php if ($log['type'] === 'borrow'): ?>
+                                            <i class="bi bi-cart-fill" style="color: #0b824a; margin-right: 8px;"></i>
+                                        <?php elseif ($log['type'] === 'reservation'): ?>
+                                            <i class="bi bi-bookmark-fill" style="color: #f4b029; margin-right: 8px;"></i>
+                                        <?php endif; ?>
+                                        <?= esc($log['message']) ?>
+                                    </span>
+                                    <small style="color: #999; font-size: 12px;">
+                                        <?= date('M d, h:i A', strtotime($log['timestamp'])) ?>
+                                    </small>
+                                </li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>No recent activities</p>
+                        <p style="color: #999; text-align: center; padding: 20px;">No recent activities</p>
                     <?php endif; ?>
                 </div>
             </div>
