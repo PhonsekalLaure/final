@@ -115,6 +115,42 @@ class Equipments extends BaseController
             . view('include\foot_view');
     }
 
+    public function update($id = null)
+    {
+        if ($id === null) {
+            return redirect()->to(base_url('equipments'))->with('error', 'No equipment ID provided.');
+        }
+
+        $model = new Equipments_Model();
+
+        $equipment = $model->find($id);
+        if (!$equipment) {
+            return redirect()->to(base_url('equipments'))->with('error', 'Equipment not found.');
+        }
+
+        // Get POST data
+        $totalCount = $this->request->getPost('total_count');
+        $availableCount = $this->request->getPost('available_count');
+
+        // Default available_count to total_count if not provided
+        if ($availableCount === null || $availableCount === '') {
+            $availableCount = $totalCount;
+        }
+
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'description' => $this->request->getPost('description'),
+            'accessories' => $this->request->getPost('accessories'),
+            'total_count' => $totalCount,
+            'available_count' => $availableCount,
+            'is_deactivated' => $this->request->getPost('is_deactivated') ?? 0,
+        ];
+
+        $model->update($id, $data);
+
+        return redirect()->to(base_url('equipments'))->with('success', 'Equipment updated successfully.');
+    }
+
 
 
 }

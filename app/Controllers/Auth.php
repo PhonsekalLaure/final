@@ -89,7 +89,7 @@ class Auth extends BaseController
         if (!$email->send()) {
             return redirect()->back()->withInput()->with('errors', $email->printDebugger());
         }
-        return redirect()->to('/');
+        return redirect()->to('/')->with('success', 'Password reset link has been sent to your email.');
 
     }
     public function reset_page($token)
