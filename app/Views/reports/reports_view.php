@@ -5,7 +5,7 @@
         <h2>REPORTS MANAGEMENT</h2>
 
         <div class="d-flex align-items-center gap-3">
-            <i class="bi bi-person-circle" style="font-size: 40px; color:#0b824a;"></i>
+            <i class="bi bi-person-circle" style="font-size: 40px; color:white;"></i>
             <div>
                 <b><?= $admin['firstname'] . " " . $admin['lastname']; ?></b><br>
                 <small>
@@ -316,21 +316,6 @@
     .report-card form select:focus {
         border-color: #0b824a;
         box-shadow: 0 0 0 0.2rem rgba(11, 130, 74, 0.15);
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        background: white;
-        padding: 20px 30px;
-        border-radius: 15px;
-        border: 2px solid #0b824a;
-        margin-bottom: 25px;
-    }
-
-    .dashboard-header h2 {
-        font-size: 30px;
-        font-weight: 700;
-        color: #0b824a;
     }
 
     /* Responsive */

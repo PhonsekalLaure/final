@@ -11,9 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('public/assets/css/main.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/css/footer.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('public/assets/css/navbar.css'); ?>">
+
+    <link rel="icon" type="image/png" href="<?= base_url('public/assets/images/logo.png'); ?>">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
